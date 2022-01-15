@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInputs))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] ShipMovement _playerShip;
+    [SerializeField] ShipMovement _shipMovement;
     PlayerInputs _inputs;
 
     private void Awake() 
@@ -15,16 +15,16 @@ public class PlayerController : MonoBehaviour
     {
         if(_inputs.IsPressingForward())
         {
-            _playerShip.MoveForward();
+            _shipMovement.MoveForward();
         }
 
         if(_inputs.IsPressingRotateLeft())
         {
-            _playerShip.Rotate(ShipMovement.RotateDirection.Left);
+            _shipMovement.Rotate(ShipMovement.RotateDirection.Left);
         }
         else if(_inputs.IsPressingRotateRight())
         {
-            _playerShip.Rotate(ShipMovement.RotateDirection.Right);
+            _shipMovement.Rotate(ShipMovement.RotateDirection.Right);
         }
     }
 }
