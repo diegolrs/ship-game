@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ShipMovement _shipMovement;
     PlayerInputs _inputs;
 
+    public Vector2 Position => transform.position;
+
     private void Awake() 
     {
         _inputs = GetComponent<PlayerInputs>();
