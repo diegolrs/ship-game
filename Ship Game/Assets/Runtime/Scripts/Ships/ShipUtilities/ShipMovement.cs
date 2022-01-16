@@ -20,8 +20,6 @@ public class ShipMovement : MonoBehaviour
     
     public void MoveForward()
     {
-        Debug.Log(transform.Forward2d());
-
         _rb.position += transform.Forward2d() * _forwardSpeed * Time.fixedDeltaTime;
     }
 

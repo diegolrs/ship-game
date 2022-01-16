@@ -47,11 +47,14 @@ public class ShipDamageable : ObserverNotifier<ShipDamageable>, IDamageable
 
     public void TakeDamage(int damageAmount)
     {
-        _currentHealthy -= damageAmount;
+        if(_currentStatus != DamageStatus.Dead)
+        {
+            _currentHealthy -= damageAmount;
 
-        float percentage = (float)_currentHealthy / _maxHealthy;
-        _currentStatus = GetStatusWithPercentage(percentage);
+            float percentage = (float)_currentHealthy / _maxHealthy;
+            _currentStatus = GetStatusWithPercentage(percentage);
 
-        NotifyListeners();
+            NotifyListeners();
+        }
     }
 }
