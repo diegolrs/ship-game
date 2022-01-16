@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackDecorations
+    uniqueID: 2021001279
+    locked: 0
+  - name: Ground
+    uniqueID: 2605180541
+    locked: 0
+  - name: ForeDecorations
+    uniqueID: 2311262509
+    locked: 0
+  - name: Ship
+    uniqueID: 2531305033
+    locked: 0

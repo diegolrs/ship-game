@@ -16,7 +16,6 @@ public class ShipMovement : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _rb.bodyType = RigidbodyType2D.Kinematic;
     }
     
     public void MoveForward()
