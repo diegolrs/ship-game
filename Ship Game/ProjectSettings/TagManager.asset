@@ -47,9 +47,9 @@ TagManager:
   - name: Ground
     uniqueID: 2605180541
     locked: 0
-  - name: ForeDecorations
-    uniqueID: 2311262509
-    locked: 0
   - name: Ship
     uniqueID: 2531305033
+    locked: 0
+  - name: ForeDecorations
+    uniqueID: 2311262509
     locked: 0
