@@ -1,36 +1,40 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    List<GameObject> _objects = new List<GameObject>();
+    List<GameObject> _objects;
 
-    public void InstantiateObjects(GameObject prefab, int quantity)
+    List<GameObject> ObjectList 
     {
-        for(int i = 0; i < quantity; i++)
+        get 
         {
-            _objects.Add(InstantiateObject(prefab));
+            if(_objects == null)
+                _objects = new List<GameObject>();
+
+            return _objects;
         }
     }
 
     private GameObject InstantiateObject(GameObject prefab, bool enabled=false)
     {
-        GameObject _ = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-        _.SetActive(enabled);
-        return _;
+        GameObject obj = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+        obj.SetActive(enabled);
+
+        obj.transform.parent = transform;
+        ObjectList.Add(obj);
+
+        return obj;
     }
 
-    public GameObject PoolObject(GameObject prefab)
+    public GameObject PoolObject(GameObject prefab, bool enabled=false)
     {
-        for(int i = 0; i < _objects.Count; i++)
+        for(int i = 0; i < ObjectList.Count; i++)
         {
-            if(!_objects[i].activeInHierarchy)
-                return _objects[i];
+            if(!ObjectList[i].activeInHierarchy)
+                return ObjectList[i];
         }
 
-        var obj = InstantiateObject(prefab);
-        _objects.Add(obj);
-        return obj;
+        return InstantiateObject(prefab, enabled);
     }
 }
