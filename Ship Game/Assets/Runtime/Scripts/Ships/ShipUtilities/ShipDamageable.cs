@@ -39,12 +39,6 @@ public class ShipDamageable : ObserverNotifier<ShipDamageable>, IDamageable
         return DamageStatus.FullHealthy;
     }
 
-    private void Update() 
-    {
-        if(Input.GetKeyDown(KeyCode.K))
-            TakeDamage(10);
-    }
-
     public void TakeDamage(int damageAmount)
     {
         if(_currentStatus != DamageStatus.Dead)

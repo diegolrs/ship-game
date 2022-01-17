@@ -73,7 +73,7 @@ TrailRenderer:
   m_SortingLayerID: -1983704787
   m_SortingLayer: 4
   m_SortingOrder: 2
-  m_Time: 1.4
+  m_Time: 0.64
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -90,8 +90,8 @@ TrailRenderer:
         inWeight: 0
         outWeight: 0.3190528
       - serializedVersion: 3
-        time: 0.42136696
-        value: 0.07258803
+        time: 0.2679551
+        value: 0.096941054
         inSlope: -0.51470584
         outSlope: -0.51470584
         tangentMode: 0
@@ -99,7 +99,7 @@ TrailRenderer:
         inWeight: 0.57954544
         outWeight: 0.40000007
       - serializedVersion: 3
-        time: 0.9904762
+        time: 0.4003883
         value: 0
         inSlope: 0
         outSlope: 0
@@ -277,8 +277,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139bd40023a323b418049602499fbf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _trail: {fileID: 4389092941078441012}
   _damage: 10
+  _speed: 3
   _direction: {x: 1, y: 0}
 --- !u!61 &4389092942489750792
 BoxCollider2D:
