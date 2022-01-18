@@ -12,7 +12,6 @@ public class OptionsScreen : Screen
     [Header("Hud Texts")]
     [SerializeField, Tooltip("Text that shows the current value")] TextMeshProUGUI _gameSessionValueHud;
     [SerializeField, Tooltip("Text that shows the current value")] TextMeshProUGUI _enemySpawnValueHud;
-    private string TimeToHudString(float time) =>  time.ToString("0.##") + "s";
 
     private void Awake() 
     {
@@ -24,7 +23,7 @@ public class OptionsScreen : Screen
         _enemySpawnTimeSlider.minValue = _settingsSO.MinEnemySpawnTime;
         _enemySpawnTimeSlider.maxValue = _settingsSO.MaxEnemySpawnTime;
 
-        SyncSlidersWithSettings();
+        SyncUIWithSettings();
     }
 
     private void OnDestroy()
@@ -33,10 +32,14 @@ public class OptionsScreen : Screen
         _enemySpawnTimeSlider?.onValueChanged.RemoveListener(UpdateEnemySpawnTime);
     }
 
-    private void SyncSlidersWithSettings()
+    private string TimeToHudString(float time) =>  time.ToString("0.##") + "s";
+
+    private void SyncUIWithSettings()
     {
         _gameSessionTimeSlider.value = _settingsSO.GameSessionTime;
         _enemySpawnTimeSlider.value = _settingsSO.EnemySpawnTime;
+        _gameSessionValueHud.text = TimeToHudString(_settingsSO.GameSessionTime);
+        _enemySpawnValueHud.text = TimeToHudString(_settingsSO.EnemySpawnTime);
     }
 
     public void BackToMainMenuScreen() => _screenController?.ShowMainMenuScreen();
