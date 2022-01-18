@@ -15,7 +15,14 @@ public class CanonBallGenerator : MonoBehaviour
         }
     }
 
-    public CanonBall GenerateCanonBall(int damage, float speed, Vector2 dir, Vector2 pos, bool enabled)
+    public CanonBall GenerateCanonBall(
+                                        int damage,
+                                        float speed,
+                                        Vector2 dir,
+                                        Vector2 pos,
+                                        bool enabled,
+                                        Collider2D toIgnore = null
+                                    )
     {
         var canonBall = _canonBallPooler.PoolObject(_canonBallPrefab.gameObject).GetComponent<CanonBall>();
 
@@ -25,6 +32,7 @@ public class CanonBallGenerator : MonoBehaviour
         canonBall.SetSpeed(speed);
         canonBall.SetDirection(dir);
 
+        canonBall.IgnoreCollider(toIgnore);
         canonBall.EnableShoot(enabled);
 
         return canonBall;

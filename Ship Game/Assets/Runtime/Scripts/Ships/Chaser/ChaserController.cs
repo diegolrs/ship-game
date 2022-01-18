@@ -17,10 +17,22 @@ public class ChaserController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IOb
     public Timer UnspawnTimer { get; private set; }
     public bool WasSetuped { get; private set; }
 
+    private void OnDisable()
+    {
+        WasSetuped = false;
+    }
+
+
     public void SetupShip(EnemySpawner spawner, GameMode gameMode)
     {
-        UnspawnTimer = GetComponent<Timer>();
-        UnspawnTimer.AddListener(this);
+        if(UnspawnTimer == null)
+        {
+            UnspawnTimer = GetComponent<Timer>();
+            UnspawnTimer.AddListener(this);
+        }
+
+        UnspawnTimer.DisabeTimer();
+
 
         _chaserShipDamage.AddListener(this);
 
@@ -52,7 +64,7 @@ public class ChaserController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IOb
 
     public void OnNotified(ShipDamageable notifier)
     {
-        if(notifier.GetCurrentStatus() == ShipDamageable.DamageStatus.Dead)
+        if(notifier.IsDead())
         {
             GameMode.IncreaseScore(PointsPerDeath);
             UnspawnTimer.StartTimer(UnspawnTime);
@@ -79,7 +91,7 @@ public class ChaserController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IOb
 
     private void Explode()
     {
-        if(_chaserShipDamage.GetCurrentStatus() != ShipDamageable.DamageStatus.Dead)
+        if(!_chaserShipDamage.IsDead())
         {
             _chaserShipDamage.TakeDamage(_chaserShipDamage.GetMaxHealthy());
         }

@@ -18,4 +18,10 @@ public static class ExtendMethods
                                 y = Mathf.Sin(zRotation* Mathf.Deg2Rad)
                             };
     }
+
+    public static T PickRandom<T>(this T[] array)
+    {
+        int randIndex = Random.Range(0, array.Length);
+        return array[randIndex];
+    }
 }

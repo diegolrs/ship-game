@@ -5,7 +5,10 @@ public class Timer : ObserverNotifier<Timer>
     float _maxTime;
     float _currentTime;
     bool _enableTimer;
-    bool _shouldLoop;
+
+    
+    public enum TimerMode { Default, Loop }
+    TimerMode _mode = TimerMode.Default;
 
     private void Update() 
     {
@@ -17,15 +20,15 @@ public class Timer : ObserverNotifier<Timer>
             {
                 NotifyListeners();
 
-                if(_shouldLoop)
-                    StartTimer(_maxTime, _shouldLoop);
+                if(_mode == TimerMode.Loop)
+                    StartTimer(_maxTime, TimerMode.Loop);
                 else
                     DisabeTimer();
             }
         }
     }
 
-    public void StartTimer(float time, bool shouldLoop=false)
+    public void StartTimer(float time, TimerMode mode = TimerMode.Default)
     {
         enabled = true;
 
@@ -33,14 +36,14 @@ public class Timer : ObserverNotifier<Timer>
         _maxTime = time;
         _enableTimer = true;
 
-        _shouldLoop = shouldLoop;
+        _mode = mode;
     }
 
     public void DisabeTimer()
     {
         _currentTime = 0;
         _enableTimer = false;
-        _shouldLoop = false;
+        _mode = TimerMode.Default;
         
         enabled = false;
     }

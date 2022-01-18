@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class FrontalSingleShoot : MonoBehaviour, ICanonBallAttack
 {
     [field: SerializeField] public int DamagePerBall {get; private set;} = 30;
@@ -8,6 +9,12 @@ public class FrontalSingleShoot : MonoBehaviour, ICanonBallAttack
 
     [SerializeField] Transform _shipTransform;
     [SerializeField] Transform _positionReference;
+    [SerializeField] Collider2D _attackOwner;
+
+    private void Awake() 
+    {
+        _attackOwner = GetComponent<Collider2D>();
+    }
 
     private void Update() 
     {
@@ -22,7 +29,8 @@ public class FrontalSingleShoot : MonoBehaviour, ICanonBallAttack
                                                 Speed,
                                                 _shipTransform.Forward2d(),
                                                 _positionReference.position,
-                                                true
+                                                true,
+                                                _attackOwner
                                             );
     }
 }

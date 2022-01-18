@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour, IObserver<Timer>
         for(int i = 0; i < _spawnOnStartQuant; i++)
             SpawnEnemy();
 
-        _enemySpawnTimer.StartTimer(_gameplaySettingsSO.EnemySpawnTime); 
+        _enemySpawnTimer.StartTimer(_gameplaySettingsSO.EnemySpawnTime, Timer.TimerMode.Loop); 
     }   
 
     public void DisableAllEnemies() => _enemyPooler.DisableAllObjects();
@@ -35,17 +35,19 @@ public class EnemySpawner : MonoBehaviour, IObserver<Timer>
 
     private void SpawnEnemy()
     {
-        if(_enemyPooler.Count >= _maxEnemies)
+        if(_enemyPooler.QuantityEnabled() >= _maxEnemies)
         {
             Debug.LogWarning("Max enemies allowed reached");
             return;
         }
 
-        var prefab = _enemyPrefabs[Random.Range(0, _enemyPrefabs.Length)];
+        var prefab = _enemyPrefabs.PickRandom<GameObject>(); 
+        //_enemyPrefabs[Random.Range(0, _enemyPrefabs.Length)];
 
         var enemy = _enemyPooler.PoolObject(prefab, true);
         enemy.transform.position = ChooseRandomPosition();
         enemy.transform.parent = transform;
+        enemy.SetActive(true);
 
         IEnemyShip ship = enemy.GetComponent<IEnemyShip>();
         ship.SetupShip(this, _gameMode);
@@ -57,7 +59,7 @@ public class EnemySpawner : MonoBehaviour, IObserver<Timer>
         SpawnArea spawn;
 
         do{
-            spawn = _spawnAreas[Random.Range(0, _spawnAreas.Length)];
+            spawn = _spawnAreas.PickRandom<SpawnArea>();// _spawnAreas[Random.Range(0, _spawnAreas.Length)];
             position = spawn.PickRandomPositionInside();
         }
         while(Vector2.Distance(position, _gameMode.GetPlayerShip().Position) < MinDistanceToPlayer);

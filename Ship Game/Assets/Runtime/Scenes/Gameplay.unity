@@ -6104,11 +6104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0b7915021ce9b4d84c2c64e74a946f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1310812963 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8030741475782183348, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
-  m_PrefabInstance: {fileID: 6028889994296965468}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1333656497
 GameObject:
   m_ObjectHideFlags: 0
@@ -15210,36 +15205,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1905075441
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1905075442}
-  m_Layer: 0
-  m_Name: SideShootReference
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1905075442
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1905075441}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.04, y: -0.34, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6028889994296965469}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1934898048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16237,9 +16202,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 40766927736282757, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
-      propertyPath: _positionReference
+      propertyPath: _attackOwner
       value: 
-      objectReference: {fileID: 1310812963}
+      objectReference: {fileID: 6028889994296965469}
     - target: {fileID: 40766927736282757, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
       propertyPath: <CanonBallGenerator>k__BackingField
       value: 
@@ -16247,10 +16212,6 @@ PrefabInstance:
     - target: {fileID: 123676413354469942, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
       propertyPath: m_Name
       value: ShipPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 123676413354469962, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 123676413354469963, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
       propertyPath: m_RootOrder
@@ -16297,26 +16258,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1224874821606183947, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
-      propertyPath: _positionReference
+      propertyPath: _attackOwner
       value: 
-      objectReference: {fileID: 1905075442}
+      objectReference: {fileID: 6028889994296965469}
     - target: {fileID: 1224874821606183947, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
       propertyPath: <CanonBallGenerator>k__BackingField
       value: 
       objectReference: {fileID: 1085778430}
-    - target: {fileID: 1226484688293621807, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5913228153082115192, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
-      propertyPath: m_Name
-      value: FrontalShootReference
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
---- !u!4 &6028889994296965469 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 123676413354469963, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
+--- !u!61 &6028889994296965469 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 123676413354469962, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
   m_PrefabInstance: {fileID: 6028889994296965468}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7823510696484396518

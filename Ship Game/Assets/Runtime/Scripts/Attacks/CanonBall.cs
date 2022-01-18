@@ -12,13 +12,11 @@ public class CanonBall : MonoBehaviour
 
     private float _curLifeTime;
     private const float LifeTime = 1.1f;
-
-    Collider2D _collider;
+    private Collider2D _colliderToIgnore;
 
     private void Awake() 
     {
-        _collider = GetComponent<Collider2D>();
-        _collider.isTrigger = false;
+        GetComponent<Collider2D>().isTrigger = true;
     }
 
     void Update()
@@ -30,10 +28,16 @@ public class CanonBall : MonoBehaviour
             EnableShoot(false);
     }
 
-    private void OnCollisionEnter2D(Collision2D other) 
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.GetComponent<IDamageable>() is IDamageable damageable)
-        {
+        bool ignoreCollision = _colliderToIgnore != null 
+                                && other.GetComponent<Collider2D>() == _colliderToIgnore;
+
+        if(ignoreCollision)
+            return;
+
+        if(other.GetComponent<IDamageable>() is IDamageable damageable)
+        {   
             damageable.TakeDamage(_damage);
             EnableShoot(false);
         }
@@ -53,7 +57,7 @@ public class CanonBall : MonoBehaviour
         }
     }
 
-    public void DisableShoot() => gameObject.SetActive(false);
+    public void IgnoreCollider(Collider2D toIgnore) => _colliderToIgnore = toIgnore;
     public void SetDirection(Vector2 dir) => _direction = dir;
     public void SetDamage(int damage) => _damage = damage;
     public void SetSpeed(float speed) => _speed = speed;

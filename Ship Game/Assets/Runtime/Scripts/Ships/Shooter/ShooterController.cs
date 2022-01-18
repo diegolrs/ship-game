@@ -1,12 +1,17 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Timer))]
+[RequireComponent(typeof(ICanonBallAttack))]
 public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IObserver<ShipDamageable>
 {
     [SerializeField] PlayerController _player;
     [SerializeField] ShipDamageable _shooterShipDamage;
     [SerializeField] float _minDistanceToShoot = 1.5f;
+    [SerializeField] float _attackDelay = 0.8f;
     bool shouldShoot;
+    ICanonBallAttack _attack;
+    private Timer _attackTimer;
+
 
     #region Enemy Ship Interface
     public int PointsPerDeath => 1;
@@ -22,8 +27,14 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
         this.GameMode = gameMode;
         this._player = gameMode.GetPlayerShip();
 
-        UnspawnTimer = GetComponent<Timer>();
-        UnspawnTimer.AddListener(this);
+        if(UnspawnTimer == null)
+        {
+            UnspawnTimer = GetComponent<Timer>();
+            UnspawnTimer.AddListener(this);
+        }
+
+        UnspawnTimer.DisabeTimer();
+        
         _shooterShipDamage.AddListener(this);
 
         WasSetuped = true;
@@ -44,28 +55,31 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
     }
     #endregion
 
-    private void Update()
+    private void Awake()
     {
-        if(!WasSetuped)
-            return;
-
-        shouldShoot = Vector2.Distance(transform.position, _player.Position) < _minDistanceToShoot;
-        if(shouldShoot) ShootPlayer();
-    }
-
-    private void ShootPlayer()
-    {
-        Debug.Log("player should be shooted");
+        _attack = GetComponent<ICanonBallAttack>();   
     }
 
     public void OnNotified(Timer notifier)
     {
-        EnemySpawner.UnspawnEnemy(gameObject);
+        if(notifier == UnspawnTimer)
+            EnemySpawner.UnspawnEnemy(gameObject);
+        else if(notifier == _attackTimer)
+            ProcessAttack();
+    }
+
+    private void ProcessAttack()
+    {
+        bool shouldShoot =  !_shooterShipDamage.IsDead() 
+                            && Vector2.Distance(transform.position, _player.Position) < _minDistanceToShoot;
+
+        if(shouldShoot)
+            _attack.Attack();
     }
 
     public void OnNotified(ShipDamageable notifier)
     {
-        if(notifier.GetCurrentStatus() == ShipDamageable.DamageStatus.Dead)
+        if(notifier.IsDead())
         {
             GameMode.IncreaseScore(PointsPerDeath);
             UnspawnTimer.StartTimer(UnspawnTime);

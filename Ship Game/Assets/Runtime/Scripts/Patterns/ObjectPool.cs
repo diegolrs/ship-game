@@ -47,5 +47,16 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    public int Count => ObjectList.Count;
+    public int QuantityEnabled()
+    {
+        int quant = 0;
+
+        for(int i = 0; i < ObjectList.Count; i++)
+        {
+            if(ObjectList[i] != null && ObjectList[i].activeInHierarchy)
+                quant++;
+        }
+
+        return quant;
+    }
 }

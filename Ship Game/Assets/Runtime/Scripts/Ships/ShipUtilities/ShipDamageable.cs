@@ -31,6 +31,8 @@ public class ShipDamageable : ObserverNotifier<ShipDamageable>, IDamageable
     public int GetMaxHealthy() => _maxHealthy;
     public DamageStatus GetCurrentStatus() => _currentStatus;
 
+    public bool IsDead() => _currentStatus == DamageStatus.Dead;
+
     public DamageStatus GetStatusWithPercentage(float percentage)
     {
         if(percentage <= 0)

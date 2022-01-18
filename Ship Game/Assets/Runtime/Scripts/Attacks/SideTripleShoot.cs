@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class SideTripleShoot : MonoBehaviour, ICanonBallAttack
 {
     [field: SerializeField] public int DamagePerBall {get; private set;} = 10;
@@ -8,8 +9,14 @@ public class SideTripleShoot : MonoBehaviour, ICanonBallAttack
 
     [SerializeField] Transform _shipTransform;
     [SerializeField] Transform _positionReference;
+    [SerializeField] Collider2D _attackOwner;
     
     float SideAngle = Mathf.Cos(15 * Mathf.Deg2Rad);
+
+    private void Awake() 
+    {
+        _attackOwner ??= GetComponent<Collider2D>();
+    }
 
     private void Update() 
     {
@@ -35,7 +42,8 @@ public class SideTripleShoot : MonoBehaviour, ICanonBallAttack
                                         Speed,
                                         targetDirection,
                                         _positionReference.position,
-                                        true
+                                        true,
+                                        _attackOwner
                                     );
 
         }
