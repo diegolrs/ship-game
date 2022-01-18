@@ -37,4 +37,15 @@ public class ObjectPool : MonoBehaviour
 
         return InstantiateObject(prefab, enabled);
     }
+
+    public void DisableAllObjects()
+    {
+        for(int i = 0; i < ObjectList.Count; i++)
+        {
+            if(ObjectList[i] != null)
+                ObjectList[i].SetActive(false);
+        }
+    }
+
+    public int Count => ObjectList.Count;
 }

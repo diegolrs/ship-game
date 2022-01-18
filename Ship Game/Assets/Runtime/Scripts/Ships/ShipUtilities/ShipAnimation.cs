@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class ShipAnimation : MonoBehaviour, IObserver<ShipDamageable>
 {
@@ -6,6 +7,7 @@ public class ShipAnimation : MonoBehaviour, IObserver<ShipDamageable>
     [SerializeField] ShipDamageable _shipDamageableToObserver;
 
     [Header("Animation Objects")]
+    [SerializeField] TextMeshProUGUI _damageText;
     [SerializeField] SpriteRenderer _renderer;
     [SerializeField] GameObject _smallFire;
     [SerializeField] GameObject _bigFire;
@@ -15,11 +17,13 @@ public class ShipAnimation : MonoBehaviour, IObserver<ShipDamageable>
 
     private void Awake()
     {
-        if(_shipDamageableToObserver != null)
-        {
-            _shipDamageableToObserver.AddListener(this);
-            UpdateSprite(_shipDamageableToObserver.GetCurrentStatus());
-        }
+        _shipDamageableToObserver.AddListener(this);
+    }
+
+    private void OnEnable() 
+    {
+        UpdateSprite(_shipDamageableToObserver.GetCurrentStatus());
+        UpdateText(_shipDamageableToObserver);
 
         _smallFire.SetActive(false);
         _bigFire.SetActive(false);
@@ -34,6 +38,12 @@ public class ShipAnimation : MonoBehaviour, IObserver<ShipDamageable>
         UpdateSprite(curStatus);
         ProcessFireAnimation(curStatus);
         PlayExplosionAnimation();
+        UpdateText(notifier);
+    }
+
+    private void UpdateText(ShipDamageable damageable)
+    {
+        _damageText.text = $"{damageable.GetCurrentHealthy()}";
     }
 
     private void UpdateSprite(ShipDamageable.DamageStatus status)

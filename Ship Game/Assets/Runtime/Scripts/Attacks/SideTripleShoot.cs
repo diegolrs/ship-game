@@ -17,6 +17,7 @@ public class SideTripleShoot : MonoBehaviour, ICanonBallAttack
             Attack();
     }
 
+    // TODO: FIX ROTATION
     public void Attack()
     { 
         Vector3 rot = _shipTransform.rotation.eulerAngles;

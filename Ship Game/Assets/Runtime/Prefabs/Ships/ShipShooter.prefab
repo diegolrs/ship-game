@@ -74,6 +74,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5917035616882460705, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
   m_PrefabInstance: {fileID: 223676294198309826}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5838671643110587289 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5917035616882460763, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
+  m_PrefabInstance: {fileID: 223676294198309826}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5838671643110587363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a781959eada0f4f881605f7aa0f048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7823510696484396520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +98,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
+  _shooterShipDamage: {fileID: 5838671643110587289}
   _minDistanceToShoot: 1.5
   _colorWhenCantShoot: {r: 0, g: 1, b: 0, a: 1}
   _colorWhenCanShoot: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &5986289850991037548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5838671643110587363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0b7915021ce9b4d84c2c64e74a946f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
