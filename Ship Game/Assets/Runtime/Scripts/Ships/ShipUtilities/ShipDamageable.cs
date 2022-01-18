@@ -19,12 +19,16 @@ public class ShipDamageable : ObserverNotifier<ShipDamageable>, IDamageable
     int _currentHealthy;
     DamageStatus _currentStatus;
 
-    private void Start() 
+    private void OnEnable() =>  ResetToDefault();
+
+    public void ResetToDefault()
     {
         _currentStatus = DamageStatus.FullHealthy;
         _currentHealthy = _maxHealthy;
     }
 
+    public int GetCurrentHealthy() => _currentHealthy;
+    public int GetMaxHealthy() => _maxHealthy;
     public DamageStatus GetCurrentStatus() => _currentStatus;
 
     public DamageStatus GetStatusWithPercentage(float percentage)
@@ -43,7 +47,7 @@ public class ShipDamageable : ObserverNotifier<ShipDamageable>, IDamageable
     {
         if(_currentStatus != DamageStatus.Dead)
         {
-            _currentHealthy -= damageAmount;
+            _currentHealthy = Mathf.Max(0, _currentHealthy - damageAmount);
 
             float percentage = (float)_currentHealthy / _maxHealthy;
             _currentStatus = GetStatusWithPercentage(percentage);

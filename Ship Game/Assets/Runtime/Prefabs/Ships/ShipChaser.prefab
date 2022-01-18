@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1952349419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1952349420}
+  m_Layer: 0
+  m_Name: ShootReference
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1952349420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952349419}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.718, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5196206872341475115}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1873825192175101815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11,6 +41,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShipChaser
       objectReference: {fileID: 0}
+    - target: {fileID: 5917035616882460705, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5917035616882460764, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -21,7 +55,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5917035616882460764, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.792
       objectReference: {fileID: 0}
     - target: {fileID: 5917035616882460764, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
       propertyPath: m_LocalPosition.z
@@ -65,3 +99,89 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
+--- !u!1 &5196206872341475158 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5917035616882460705, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
+  m_PrefabInstance: {fileID: 1873825192175101815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5196206872341475115 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5917035616882460764, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
+  m_PrefabInstance: {fileID: 1873825192175101815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5196206872341475112 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5917035616882460767, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
+  m_PrefabInstance: {fileID: 1873825192175101815}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5196206872341475158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a6189a3a44d3d4ea7770bab668e2d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5196206872341475116 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5917035616882460763, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
+  m_PrefabInstance: {fileID: 1873825192175101815}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5196206872341475158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a781959eada0f4f881605f7aa0f048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &572788275772405583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5196206872341475158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60cba99c48c5b9447b581ee210738751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _chaserShipMovement: {fileID: 5196206872341475112}
+  _chaserShipDamage: {fileID: 5196206872341475116}
+--- !u!114 &6665199105895878642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5196206872341475158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0b7915021ce9b4d84c2c64e74a946f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1873825192378456009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5196206872341475158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60cba99c48c5b9447b581ee210738751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _chaserShipMovement: {fileID: 5196206872341475112}
+  _chaserShipDamage: {fileID: 5196206872341475116}
+--- !u!114 &1873825192378456014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5196206872341475158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0b7915021ce9b4d84c2c64e74a946f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
