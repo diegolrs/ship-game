@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Timer))]
 [RequireComponent(typeof(ICanonBallAttack))]
 public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IObserver<ShipDamageable>
 {
@@ -10,7 +9,9 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
     [SerializeField] float _attackDelay = 0.8f;
     bool shouldShoot;
     ICanonBallAttack _attack;
-    private Timer _attackTimer;
+    CanonBallGenerator _canonBallGenerator;
+
+    [SerializeField] private Timer _attackTimer;
 
 
     #region Enemy Ship Interface
@@ -18,24 +19,19 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
     public float UnspawnTime => 2f;
     public EnemySpawner EnemySpawner { get; set; }
     public GameMode GameMode {get; private set;}
-    public Timer UnspawnTimer { get; private set; }
+    [field: SerializeField] public Timer UnspawnTimer { get; private set; }
     public bool WasSetuped { get; private set; }
 
     public void SetupShip(EnemySpawner spawner, GameMode gameMode)
     {
         this.EnemySpawner = spawner;
         this.GameMode = gameMode;
+
         this._player = gameMode.GetPlayerShip();
-
-        if(UnspawnTimer == null)
-        {
-            UnspawnTimer = GetComponent<Timer>();
-            UnspawnTimer.AddListener(this);
-        }
-
-        UnspawnTimer.DisabeTimer();
+        this._canonBallGenerator = gameMode.GetCanonBallGenerator();
         
-        _shooterShipDamage.AddListener(this);
+        UnspawnTimer.DisabeTimer();
+        _attackTimer.StartTimer(_attackDelay, Timer.TimerMode.Loop);
 
         WasSetuped = true;
     }
@@ -57,7 +53,10 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
 
     private void Awake()
     {
-        _attack = GetComponent<ICanonBallAttack>();   
+        _attack = GetComponent<ICanonBallAttack>(); 
+        UnspawnTimer.AddListener(this);
+        _attackTimer.AddListener(this);
+        _shooterShipDamage.AddListener(this);
     }
 
     public void OnNotified(Timer notifier)
@@ -68,21 +67,32 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
             ProcessAttack();
     }
 
-    private void ProcessAttack()
-    {
-        bool shouldShoot =  !_shooterShipDamage.IsDead() 
-                            && Vector2.Distance(transform.position, _player.Position) < _minDistanceToShoot;
-
-        if(shouldShoot)
-            _attack.Attack();
-    }
-
     public void OnNotified(ShipDamageable notifier)
     {
         if(notifier.IsDead())
         {
             GameMode.IncreaseScore(PointsPerDeath);
             UnspawnTimer.StartTimer(UnspawnTime);
+            _attackTimer.DisabeTimer();
+        }
+    }
+
+    private void ProcessAttack()
+    {
+        bool shouldShoot =  WasSetuped
+                            && !_shooterShipDamage.IsDead() 
+                            && Vector2.Distance(transform.position, _player.Position) <= _minDistanceToShoot;
+
+        if(shouldShoot)
+        {
+            var curr = transform.position;
+            var target = _player.Position;
+            var dir = Vector2.one;
+
+            dir.x = curr.x >= target.x ? -1 : 1;
+            dir.y = curr.y >= target.y ? -1 : 1;
+
+            _attack.Attack(dir, _canonBallGenerator);
         }
     }
 }

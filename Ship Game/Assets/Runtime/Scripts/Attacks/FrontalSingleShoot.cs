@@ -5,7 +5,6 @@ public class FrontalSingleShoot : MonoBehaviour, ICanonBallAttack
 {
     [field: SerializeField] public int DamagePerBall {get; private set;} = 30;
     [field: SerializeField] public float Speed {get; private set;} = 5;
-    [field: SerializeField] public CanonBallGenerator CanonBallGenerator {get; private set;}
 
     [SerializeField] Transform _shipTransform;
     [SerializeField] Transform _positionReference;
@@ -16,18 +15,12 @@ public class FrontalSingleShoot : MonoBehaviour, ICanonBallAttack
         _attackOwner = GetComponent<Collider2D>();
     }
 
-    private void Update() 
+    public void Attack(Vector2 direction, CanonBallGenerator canonBallGenerator)
     {
-        if(Input.GetKeyDown(KeyCode.J))
-            Attack();
-    }
-
-    public void Attack()
-    {
-        CanonBallGenerator.GenerateCanonBall(
+        canonBallGenerator.GenerateCanonBall(
                                                 DamagePerBall,
                                                 Speed,
-                                                _shipTransform.Forward2d(),
+                                                direction,
                                                 _positionReference.position,
                                                 true,
                                                 _attackOwner

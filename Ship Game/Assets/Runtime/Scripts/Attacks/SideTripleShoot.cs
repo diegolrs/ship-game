@@ -5,12 +5,12 @@ public class SideTripleShoot : MonoBehaviour, ICanonBallAttack
 {
     [field: SerializeField] public int DamagePerBall {get; private set;} = 10;
     [field: SerializeField] public float Speed {get; private set;} = 8;
-    [field: SerializeField] public CanonBallGenerator CanonBallGenerator {get; private set;}
 
     [SerializeField] Transform _shipTransform;
     [SerializeField] Transform _positionReference;
     [SerializeField] Collider2D _attackOwner;
     
+    const float AngleOffset = 15 * Mathf.Deg2Rad;
     float SideAngle = Mathf.Cos(15 * Mathf.Deg2Rad);
 
     private void Awake() 
@@ -18,34 +18,27 @@ public class SideTripleShoot : MonoBehaviour, ICanonBallAttack
         _attackOwner ??= GetComponent<Collider2D>();
     }
 
-    private void Update() 
-    {
-        if(Input.GetKeyDown(KeyCode.T))
-            Attack();
-    }
-
-    // TODO: FIX ROTATION
-    public void Attack()
+    public void Attack(Vector2 direction, CanonBallGenerator canonBallGenerator)
     { 
-        Vector3 rot = _shipTransform.rotation.eulerAngles;
-        Vector2 centerDirection = _shipTransform.Forward2d();
-        Vector2 rotated = new Vector2(centerDirection.y, -centerDirection.x);
-
-        Vector2 targetDirection = rotated;
+        float baseRotation = (_positionReference.GetZRotationInDegrees()) * Mathf.Deg2Rad;
 
         for(int i = -1; i <= 1; i++)
         {
-            targetDirection.x = rotated.x + SideAngle * i;
+            float angleOffset = AngleOffset * i;
 
-            CanonBallGenerator.GenerateCanonBall(
+            var k_dir = new Vector2(
+                                        MathUtils.CosOfSum(baseRotation, angleOffset), 
+                                        MathUtils.SinOfSum(baseRotation, angleOffset)
+                                    );
+
+            canonBallGenerator.GenerateCanonBall(
                                         DamagePerBall,
                                         Speed,
-                                        targetDirection,
+                                        k_dir,
                                         _positionReference.position,
                                         true,
                                         _attackOwner
                                     );
-
         }
     }
 }

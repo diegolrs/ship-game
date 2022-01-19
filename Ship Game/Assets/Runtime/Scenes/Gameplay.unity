@@ -889,6 +889,7 @@ MonoBehaviour:
   _enemySpawner: {fileID: 1285530198}
   _playerShip: {fileID: 325829046}
   _screenController: {fileID: 57322473}
+  _canonBallGenerator: {fileID: 1085778430}
   <Score>k__BackingField: 0
 --- !u!4 &897234583
 Transform:
@@ -15126,7 +15127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1697326091}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.37, y: 1.49, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -16150,7 +16151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5196206872341475115, guid: 3fcf12f3b81261c478010f5599434855, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 5196206872341475115, guid: 3fcf12f3b81261c478010f5599434855, type: 3}
       propertyPath: m_LocalPosition.y
@@ -16192,6 +16193,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShipChaser
       objectReference: {fileID: 0}
+    - target: {fileID: 5196206872341475158, guid: 3fcf12f3b81261c478010f5599434855, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fcf12f3b81261c478010f5599434855, type: 3}
 --- !u!1001 &6028889994296965468
@@ -16201,14 +16206,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 40766927736282757, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
-      propertyPath: _attackOwner
-      value: 
-      objectReference: {fileID: 6028889994296965469}
-    - target: {fileID: 40766927736282757, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
-      propertyPath: <CanonBallGenerator>k__BackingField
-      value: 
-      objectReference: {fileID: 1085778430}
+    - target: {fileID: 1905075442, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905075442, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905075442, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905075442, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905075442, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905075442, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 123676413354469942, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
       propertyPath: m_Name
       value: ShipPlayer
@@ -16219,11 +16240,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 123676413354469963, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 123676413354469963, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.49
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 123676413354469963, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -16257,21 +16278,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1224874821606183947, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
-      propertyPath: _attackOwner
+    - target: {fileID: 2893325100518815883, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
+      propertyPath: _gameMode
       value: 
-      objectReference: {fileID: 6028889994296965469}
-    - target: {fileID: 1224874821606183947, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
-      propertyPath: <CanonBallGenerator>k__BackingField
-      value: 
-      objectReference: {fileID: 1085778430}
+      objectReference: {fileID: 897234582}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
---- !u!61 &6028889994296965469 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 123676413354469962, guid: b96da52bdb9372d45946062dcce4740c, type: 3}
-  m_PrefabInstance: {fileID: 6028889994296965468}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7823510696484396518
 PrefabInstance:
   m_ObjectHideFlags: 0

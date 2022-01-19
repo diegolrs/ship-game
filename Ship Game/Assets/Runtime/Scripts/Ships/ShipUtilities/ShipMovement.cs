@@ -33,36 +33,39 @@ public class ShipMovement : MonoBehaviour
         transform.Rotate(v3);
     }
 
-    public IEnumerator RotateRoutine(float curAngle, float targetAngle, float time)
+    public float GetInCircleDegrees(float rot)
     {
-        float rot = Rotation;
-
         while(rot < 0)
             rot += 360;
 
-        while(rot > 0)
+        while(rot > 360)
             rot -= 360;
 
-        float delta = targetAngle-curAngle;
-        float step = delta/time;
+        return rot;
+    }
 
-        var direction = delta > 0 ? RotateDirection.Right : RotateDirection.Left;
+    public IEnumerator RotateRoutine(float target)
+    {
+        float from = GetInCircleDegrees(Rotation);
+        target = GetInCircleDegrees(target);
 
-        curAngle = Rotation;
+        var direction = from > target ? RotateDirection.Left : RotateDirection.Right;
 
-        while(Mathf.Abs(curAngle/targetAngle) < 1)
+        if(direction == RotateDirection.Left)
         {
-            break;
-
-            curAngle = Rotation;
-            curAngle += step; 
-            
-            var v3 = Vector3.forward * (int)direction * _rotateSpeed * Time.fixedDeltaTime;
-            //transform.rotation += new Quaternion(v3.x, v3.y, v3.z, 0);
-
-            Rotate(direction);
-            yield return new WaitForSeconds(Mathf.Abs(step));
-            
+            while(GetInCircleDegrees(Rotation) > target)
+            {
+                Rotate(direction);
+                yield return null;
+            }
+        }
+        else if(direction == RotateDirection.Right)
+        {
+            while(GetInCircleDegrees(Rotation) < target)
+            {
+                Rotate(direction);
+                yield return null;
+            }
         }
     }
 }

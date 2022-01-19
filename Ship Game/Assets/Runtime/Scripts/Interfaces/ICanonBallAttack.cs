@@ -1,7 +1,8 @@
+using UnityEngine;
+
 public interface ICanonBallAttack 
 {
     int DamagePerBall { get; }
     float Speed { get; }
-    CanonBallGenerator CanonBallGenerator {get; }
-    void Attack();
+    void Attack(Vector2 direction, CanonBallGenerator canonBallGenerator);
 }

@@ -5,11 +5,13 @@ public class GameMode : MonoBehaviour
     [SerializeField] EnemySpawner _enemySpawner;
     [SerializeField] PlayerController _playerShip;
     [SerializeField] ScreenController _screenController;
+    [SerializeField] CanonBallGenerator _canonBallGenerator;
 
     [field: SerializeField] public int Score { get; private set; }
     private bool GameHasEnded {get; set;}
 
     public PlayerController GetPlayerShip() => _playerShip;
+    public CanonBallGenerator GetCanonBallGenerator() => _canonBallGenerator;
 
     public void IncreaseScore(int quant=1)
     {
