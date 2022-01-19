@@ -3,7 +3,6 @@ using TMPro;
 
 public class GameOverScreen : Screen
 {
-    [SerializeField] ScreenController _screenController;
     [SerializeField] SceneController _sceneController;
     [SerializeField] SceneController.SceneName _mainMenuScene;
     [SerializeField] SceneController.SceneName _gameplayScene;

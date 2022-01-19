@@ -27,7 +27,7 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
         this.EnemySpawner = spawner;
         this.GameMode = gameMode;
 
-        this._player = gameMode.GetPlayerShip();
+        this._player = gameMode.GetPlayerController();
         this._canonBallGenerator = gameMode.GetCanonBallGenerator();
         
         UnspawnTimer.DisabeTimer();

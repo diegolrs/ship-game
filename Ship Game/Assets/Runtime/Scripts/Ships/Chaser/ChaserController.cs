@@ -41,7 +41,7 @@ public class ChaserController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IOb
 
         this.EnemySpawner = spawner;
         this.GameMode = gameMode;
-        _player = gameMode.GetPlayerShip();
+        _player = gameMode.GetPlayerController();
 
         _canRotate = true;
         WasSetuped = true;

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerInputs : MonoBehaviour
 {
-    [SerializeField] KeyCode _forwardKey = KeyCode.UpArrow;
-    [SerializeField] KeyCode _rotateLeftKey = KeyCode.LeftArrow;
-    [SerializeField] KeyCode _rotateRightKey = KeyCode.RightArrow;
-    [SerializeField] KeyCode _singleShoot = KeyCode.J;
-    [SerializeField] KeyCode _tripleShoot = KeyCode.K;
+    [field: SerializeField] public KeyCode ForwardKey { get; private set; } = KeyCode.UpArrow;
+    [field: SerializeField] public KeyCode RotateLeftKey { get; private set; } = KeyCode.LeftArrow;
+    [field: SerializeField] public KeyCode RotateRightKey { get; private set; } = KeyCode.RightArrow;
+    [field: SerializeField] public KeyCode SingleShoot { get; private set; } = KeyCode.Z;
+    [field: SerializeField] public KeyCode TripleShoot { get; private set; } = KeyCode.X;
 
     public bool IsPressingForward() => _isPressingForward;
     public bool IsPressingRotateLeft() => _isPressingRotateLeft;
@@ -22,10 +22,10 @@ public class PlayerInputs : MonoBehaviour
 
     private void Update() 
     {
-        _isPressingForward = Input.GetKey(_forwardKey);
-        _isPressingRotateLeft = Input.GetKey(_rotateLeftKey);
-        _isPressingRotateRight = Input.GetKey(_rotateRightKey);
-        _isPressingSingleShoot = Input.GetKey(_singleShoot);
-        _isPressingTripleShoot = Input.GetKey(_tripleShoot);
+        _isPressingForward = Input.GetKey(ForwardKey);
+        _isPressingRotateLeft = Input.GetKey(RotateLeftKey);
+        _isPressingRotateRight = Input.GetKey(RotateRightKey);
+        _isPressingSingleShoot = Input.GetKey(SingleShoot);
+        _isPressingTripleShoot = Input.GetKey(TripleShoot);
     }
 }

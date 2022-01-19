@@ -62,7 +62,7 @@ public class EnemySpawner : MonoBehaviour, IObserver<Timer>
             spawn = _spawnAreas.PickRandom<SpawnArea>();// _spawnAreas[Random.Range(0, _spawnAreas.Length)];
             position = spawn.PickRandomPositionInside();
         }
-        while(Vector2.Distance(position, _gameMode.GetPlayerShip().Position) < MinDistanceToPlayer);
+        while(Vector2.Distance(position, _gameMode.GetPlayerController().Position) < MinDistanceToPlayer);
 
         return position;
     }

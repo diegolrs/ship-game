@@ -22,6 +22,7 @@ public class ScreenController : MonoBehaviour
     public void ShowMainMenuScreen() => ShowScreen(FindScreenWithType(typeof(MainMenuScreen)));
     public void ShowOptionsScreen() => ShowScreen(FindScreenWithType(typeof(OptionsScreen)));
     public void ShowGameOverScreen() => ShowScreen(FindScreenWithType(typeof(GameOverScreen)));
+    public void ShowGameplayScreen() => ShowScreen(FindScreenWithType(typeof(GameplayScreen)));
 
     private void ShowScreen(Screen screen)
     {

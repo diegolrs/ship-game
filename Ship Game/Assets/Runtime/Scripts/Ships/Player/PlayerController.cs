@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour, IObserver<ShipDamageable>, IObser
     public Vector2 Position => transform.position;
 
     public ShipDamageable GetShipDamageable() => _shipDamageable;
+    public PlayerInputs GetPlayerInputs() => _inputs;
 
     private void Awake() 
     {
