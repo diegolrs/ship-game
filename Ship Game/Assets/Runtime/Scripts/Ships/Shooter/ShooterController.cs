@@ -7,7 +7,7 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
     [SerializeField] ShipDamageable _shooterShipDamage;
     [SerializeField] float _minDistanceToShoot = 1.5f;
     [SerializeField] float _attackDelay = 0.8f;
-    bool shouldShoot;
+    bool _shouldShoot;
     ICanonBallAttack _attack;
     CanonBallGenerator _canonBallGenerator;
 
@@ -46,7 +46,7 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
 
     private void OnDrawGizmos() 
     {
-        Gizmos.color = shouldShoot ? _colorWhenCanShoot : _colorWhenCantShoot;
+        Gizmos.color = _shouldShoot ? _colorWhenCanShoot : _colorWhenCantShoot;
         Gizmos.DrawWireSphere(transform.position, _minDistanceToShoot);
     }
     #endregion
@@ -79,19 +79,20 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
 
     private void ProcessAttack()
     {
-        bool shouldShoot =  WasSetuped
-                            && !_shooterShipDamage.IsDead() 
-                            && Vector2.Distance(transform.position, _player.Position) <= _minDistanceToShoot;
+        _shouldShoot =  WasSetuped
+                        && !_shooterShipDamage.IsDead() 
+                        && Vector2.Distance(transform.position, _player.Position) <= _minDistanceToShoot;
 
-        if(shouldShoot)
+        if(_shouldShoot)
         {
-            var curr = transform.position;
-            var target = _player.Position;
-            var dir = Vector2.one;
+            var playerShip = _player.transform.position;
+            var thisShip = transform.position;
 
-            dir.x = curr.x >= target.x ? -1 : 1;
-            dir.y = curr.y >= target.y ? -1 : 1;
+            float x = playerShip.x - thisShip.x;
+            float y = playerShip.y - thisShip.y;
 
+            var dir = new Vector2(x, y).normalized;
+            
             _attack.Attack(dir, _canonBallGenerator);
         }
     }

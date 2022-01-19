@@ -13,7 +13,6 @@ public static class MathUtils
     {
         return Mathf.Cos(a) * Mathf.Cos(b) - Mathf.Sin(a) * Mathf.Sin(b);
     }
-
     
     #region Vector Rotation
     // Linear Algebra Concept: 
