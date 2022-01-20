@@ -13,7 +13,7 @@ public class EnemySpawner : MonoBehaviour, IObserver<Timer>
     [SerializeField] SpawnArea[] _spawnAreas;
     [SerializeField] int _spawnOnStartQuant;
     [SerializeField] int _maxEnemies;
-    private const float MinDistanceToPlayer = 2f;
+    private const float MinDistanceToPlayer = 5f;
     
     private void Awake() => _enemySpawnTimer?.AddListener(this);
     private void OnDestroy() => _enemySpawnTimer?.RemoveListener(this);
@@ -59,7 +59,7 @@ public class EnemySpawner : MonoBehaviour, IObserver<Timer>
         SpawnArea spawn;
 
         do{
-            spawn = _spawnAreas.PickRandom<SpawnArea>();// _spawnAreas[Random.Range(0, _spawnAreas.Length)];
+            spawn = _spawnAreas.PickRandom<SpawnArea>();
             position = spawn.PickRandomPositionInside();
         }
         while(Vector2.Distance(position, _gameMode.GetPlayerController().Position) < MinDistanceToPlayer);
