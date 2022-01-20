@@ -18,6 +18,7 @@ public static class ExtendMethods
         return zRotation;
     }
 
+    /// <returns>Returns the direction that the Transform is facing based on z rotation</returns>
     public static Vector2 Forward2d(this Transform transform)
     {
         float zRotation = transform.GetZRotationInDegrees() * Mathf.Deg2Rad;

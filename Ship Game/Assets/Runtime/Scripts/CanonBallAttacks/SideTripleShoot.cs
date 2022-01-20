@@ -1,22 +1,26 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Timer))]
 public class SideTripleShoot : MonoBehaviour, ICanonBallAttack
 {
     [field: SerializeField] public int DamagePerBall {get; private set;} = 10;
-    [field: SerializeField] public float Speed {get; private set;} = 8;
+    [field: SerializeField] public float CanonBallSpeed {get; private set;} = 8;
+    [field: SerializeField] public float AttackCoolDown { get; private set; } = 2f;
+    [field: SerializeField] public bool IsWaitingCoolDownEnds { get; private set; }
+    public Timer CoolDownTimer { get; private set; }
 
-    [SerializeField] Transform _shipTransform;
     [SerializeField] Transform _positionReference;
-    [SerializeField] Collider2D _attackOwner;
+    [SerializeField] Collider2D _colliderToIgnore;
     
-    const float AngleOffset = 15 * Mathf.Deg2Rad;
-    float SideAngle = Mathf.Cos(15 * Mathf.Deg2Rad);
+    const float AngleBetweenCanonBalls = 15 * Mathf.Deg2Rad;
 
-    private void Awake() 
+    private void Awake()
     {
-        _attackOwner ??= GetComponent<Collider2D>();
+        CoolDownTimer = GetComponent<Timer>();
+        CoolDownTimer?.AddListener(this);
     }
+    
+    private void OnDestroy() => CoolDownTimer?.RemoveListener(this);
 
     public void Attack(Vector2 direction, CanonBallGenerator canonBallGenerator)
     { 
@@ -24,7 +28,7 @@ public class SideTripleShoot : MonoBehaviour, ICanonBallAttack
 
         for(int i = -1; i <= 1; i++)
         {
-            float angleOffset = AngleOffset * i;
+            float angleOffset = AngleBetweenCanonBalls * i;
 
             var k_dir = new Vector2(
                                         MathUtils.CosOfSum(baseRotation, angleOffset), 
@@ -33,12 +37,21 @@ public class SideTripleShoot : MonoBehaviour, ICanonBallAttack
 
             canonBallGenerator.GenerateCanonBall(
                                         DamagePerBall,
-                                        Speed,
+                                        CanonBallSpeed,
                                         k_dir,
                                         _positionReference.position,
                                         true,
-                                        _attackOwner
+                                        _colliderToIgnore
                                     );
         }
+
+        CoolDownTimer.StartTimer(AttackCoolDown);
+        IsWaitingCoolDownEnds = true;
+    }
+
+    public void OnNotified(Timer notifier)
+    {
+        if(notifier == CoolDownTimer)
+            IsWaitingCoolDownEnds = false;
     }
 }

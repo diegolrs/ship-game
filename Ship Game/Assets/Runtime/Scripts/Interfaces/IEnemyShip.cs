@@ -1,12 +1,11 @@
 public interface IEnemyShip
 {
-    int PointsPerDeath {get;}
-    float UnspawnTime {get;}
+    int PointsToAddAfterBeKilled {get;}
+    float DelayToDisableAfterBeKilled {get;}
 
     EnemySpawner EnemySpawner {get;}
     GameMode GameMode {get; }
-    Timer UnspawnTimer {get;}
+    Timer DisableAfterBeKilledTimer {get;}
 
-    bool WasSetuped {get;}
     void SetupShip(EnemySpawner spawner, GameMode gameMode);
 }

@@ -9,8 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1905075442}
+  - component: {fileID: 280842904}
+  - component: {fileID: 2032364715401998151}
   m_Layer: 0
-  m_Name: SideShootReference
+  m_Name: SideShoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23,51 +25,38 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905075441}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.237, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.04, y: 0.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 123676413354469963}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2977533554248822110
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8023267674296574521}
-  - component: {fileID: 7722555659875709714}
-  m_Layer: 0
-  m_Name: AttackDelayTimer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8023267674296574521
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2977533554248822110}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 123676413354469963}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7722555659875709714
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &280842904
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2977533554248822110}
+  m_GameObject: {fileID: 1905075441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74f7929cffd5fa14696c028049111c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DamagePerBall>k__BackingField: 10
+  <CanonBallSpeed>k__BackingField: 8
+  <AttackCoolDown>k__BackingField: 2
+  <IsWaitingCoolDownEnds>k__BackingField: 0
+  _positionReference: {fileID: 1905075442}
+  _colliderToIgnore: {fileID: 123676413354469962}
+--- !u!114 &2032364715401998151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905075441}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd0b7915021ce9b4d84c2c64e74a946f, type: 3}
@@ -82,8 +71,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8030741475782183348}
+  - component: {fileID: 1070712091}
+  - component: {fileID: 5774754532008265084}
   m_Layer: 0
-  m_Name: FrontalShootReference
+  m_Name: FrontalShoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,6 +94,36 @@ Transform:
   m_Father: {fileID: 123676413354469963}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1070712091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5913228153082115192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8d8518bf9c82e4e88f67adfd247a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DamagePerBall>k__BackingField: 30
+  <CanonBallSpeed>k__BackingField: 9.12
+  <AttackCoolDown>k__BackingField: 2
+  <IsWaitingCoolDownEnds>k__BackingField: 0
+  _positionReference: {fileID: 8030741475782183348}
+  _colliderToIgnore: {fileID: 123676413354469962}
+--- !u!114 &5774754532008265084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5913228153082115192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0b7915021ce9b4d84c2c64e74a946f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6028889994205815319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124,11 +145,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5917035616882460764, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5917035616882460764, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.49
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5917035616882460764, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
       propertyPath: m_LocalPosition.z
@@ -171,8 +192,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5917035616882460767, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
+      propertyPath: _rotateSpeed
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5917035616882460767, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
       propertyPath: _forwardSpeed
-      value: 5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5917035617098216863, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
       propertyPath: m_Sprite
@@ -194,17 +219,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5917035616882460764, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
   m_PrefabInstance: {fileID: 6028889994205815319}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &123676413354469960 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5917035616882460767, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
-  m_PrefabInstance: {fileID: 6028889994205815319}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123676413354469942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13a6189a3a44d3d4ea7770bab668e2d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &123676413354469962 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 5917035616882460765, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
@@ -221,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a781959eada0f4f881605f7aa0f048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &40766927736282757
+--- !u!114 &1438193266
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,31 +244,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 123676413354469942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c8d8518bf9c82e4e88f67adfd247a3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 13a6189a3a44d3d4ea7770bab668e2d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DamagePerBall>k__BackingField: 30
-  <Speed>k__BackingField: 8
-  _shipTransform: {fileID: 123676413354469963}
-  _positionReference: {fileID: 8030741475782183348}
-  _attackOwner: {fileID: 123676413354469962}
---- !u!114 &1224874821606183947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123676413354469942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74f7929cffd5fa14696c028049111c0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <DamagePerBall>k__BackingField: 10
-  <Speed>k__BackingField: 8
-  _shipTransform: {fileID: 123676413354469963}
-  _positionReference: {fileID: 1905075442}
-  _attackOwner: {fileID: 123676413354469962}
+  _forwardSpeed: 3.8
+  _rotateSpeed: 200
 --- !u!114 &2893325100518815883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,11 +262,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shipDamageable: {fileID: 123676413354469964}
-  _shipMovement: {fileID: 123676413354469960}
-  _singleShoot: {fileID: 40766927736282757}
-  _tripleShoot: {fileID: 1224874821606183947}
+  _shipMovement: {fileID: 1438193266}
+  _frontalShoot: {fileID: 1070712091}
+  _sideShoot: {fileID: 280842904}
   _gameMode: {fileID: 0}
-  _attackDelayTimer: {fileID: 7722555659875709714}
 --- !u!114 &7113740145955574645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,8 +278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7eaf8d326f50b846b2bafb2095ed6a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _forwardKey: 273
-  _rotateLeftKey: 276
-  _rotateRightKey: 275
-  _singleShoot: 106
-  _tripleShoot: 107
+  <ForwardKey>k__BackingField: 273
+  <RotateLeftKey>k__BackingField: 276
+  <RotateRightKey>k__BackingField: 275
+  <FrontalShoot>k__BackingField: 122
+  <SideShoot>k__BackingField: 120

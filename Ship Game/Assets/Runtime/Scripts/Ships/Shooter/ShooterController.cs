@@ -1,26 +1,23 @@
 using UnityEngine;
 
-[RequireComponent(typeof(ICanonBallAttack))]
 public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IObserver<ShipDamageable>
 {
-    [SerializeField] PlayerController _player;
+    [Header("Attack Parameters")]
     [SerializeField] ShipDamageable _shooterShipDamage;
     [SerializeField] float _minDistanceToShoot = 1.5f;
-    [SerializeField] float _attackDelay = 0.8f;
-    bool _shouldShoot;
-    ICanonBallAttack _attack;
-    CanonBallGenerator _canonBallGenerator;
+    [SerializeField] FrontalSingleShoot _attack;
 
-    [SerializeField] private Timer _attackTimer;
+    CanonBallGenerator _canonBallGenerator;
+    PlayerController _player;
+    bool _shouldShoot;
 
 
     #region Enemy Ship Interface
-    public int PointsPerDeath => 1;
-    public float UnspawnTime => 2f;
+    public int PointsToAddAfterBeKilled => 1;
+    public float DelayToDisableAfterBeKilled => 2f;
     public EnemySpawner EnemySpawner { get; set; }
     public GameMode GameMode {get; private set;}
-    [field: SerializeField] public Timer UnspawnTimer { get; private set; }
-    public bool WasSetuped { get; private set; }
+    [field: SerializeField] public Timer DisableAfterBeKilledTimer { get; private set; }
 
     public void SetupShip(EnemySpawner spawner, GameMode gameMode)
     {
@@ -30,70 +27,61 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
         this._player = gameMode.GetPlayerController();
         this._canonBallGenerator = gameMode.GetCanonBallGenerator();
         
-        UnspawnTimer.DisabeTimer();
-        _attackTimer.StartTimer(_attackDelay, Timer.TimerMode.Loop);
-
-        WasSetuped = true;
+        DisableAfterBeKilledTimer.DisabeTimer();
     }
     #endregion
 
     #region Gizmos
     [Header("Gizmos")]
-    [Tooltip("Color to apply on Gizmos when player is out of the attack radius")]
-    [SerializeField] Color _colorWhenCantShoot = Color.green;
-    [Tooltip("Color to apply on Gizmos when player is inside the attack radius")]
-    [SerializeField] Color _colorWhenCanShoot = Color.red;
+    [SerializeField] Color _gizmosColorWhenShouldShoot = Color.red;
+    [SerializeField] Color _gizmosColorWhenShouldNotShoot = Color.green;
+    
 
     private void OnDrawGizmos() 
     {
-        Gizmos.color = _shouldShoot ? _colorWhenCanShoot : _colorWhenCantShoot;
+        Gizmos.color = _shouldShoot ? _gizmosColorWhenShouldShoot : _gizmosColorWhenShouldNotShoot;
         Gizmos.DrawWireSphere(transform.position, _minDistanceToShoot);
     }
     #endregion
 
     private void Awake()
     {
-        _attack = GetComponent<ICanonBallAttack>(); 
-        UnspawnTimer.AddListener(this);
-        _attackTimer.AddListener(this);
+        DisableAfterBeKilledTimer.AddListener(this);
         _shooterShipDamage.AddListener(this);
     }
 
-    public void OnNotified(Timer notifier)
+    private void Update() 
     {
-        if(notifier == UnspawnTimer)
-            EnemySpawner.UnspawnEnemy(gameObject);
-        else if(notifier == _attackTimer)
-            ProcessAttack();
+        ProcessAttack();
     }
 
     public void OnNotified(ShipDamageable notifier)
     {
         if(notifier.IsDead())
         {
-            GameMode.IncreaseScore(PointsPerDeath);
-            UnspawnTimer.StartTimer(UnspawnTime);
-            _attackTimer.DisabeTimer();
+            GameMode.IncreaseScore(PointsToAddAfterBeKilled);
+            DisableAfterBeKilledTimer.StartTimer(DelayToDisableAfterBeKilled);
         }
+    }
+
+    public void OnNotified(Timer notifier)
+    {
+        if(notifier == DisableAfterBeKilledTimer)
+            EnemySpawner.UnspawnEnemy(gameObject);
     }
 
     private void ProcessAttack()
     {
-        _shouldShoot =  WasSetuped
+        _shouldShoot =  _player != null
+                        && _canonBallGenerator != null
                         && !_shooterShipDamage.IsDead() 
+                        && !_attack.IsWaitingCoolDownEnds
                         && Vector2.Distance(transform.position, _player.Position) <= _minDistanceToShoot;
 
         if(_shouldShoot)
         {
-            var playerShip = _player.transform.position;
-            var thisShip = transform.position;
-
-            float x = playerShip.x - thisShip.x;
-            float y = playerShip.y - thisShip.y;
-
-            var dir = new Vector2(x, y).normalized;
-            
-            _attack.Attack(dir, _canonBallGenerator);
+            var shootDirection = (_player.transform.position - transform.position).normalized;   
+            _attack.Attack(shootDirection, _canonBallGenerator);
         }
     }
 }

@@ -10,7 +10,7 @@ public class Timer : ObserverNotifier<Timer>
     public enum TimerMode { Default, Loop }
     TimerMode _mode = TimerMode.Default;
     public float GetCurrentTime() => _currentTime;
-    public float GetRemainingTime() => Mathf.Min(0, _maxTime - _currentTime);
+    public float GetRemainingTime() => Mathf.Max(0, _maxTime - _currentTime);
 
     private void Update() 
     {
