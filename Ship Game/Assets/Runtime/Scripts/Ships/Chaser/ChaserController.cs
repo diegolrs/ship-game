@@ -149,7 +149,7 @@ public class ChaserController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IOb
         {
             float tRotation = MathUtils.LerpClamped(initRotation, rotateTarget, rotateTime);
             _chaserShipMovement.SetRotation(tRotation);
-            rotateTime += Time.deltaTime * 1f;
+            rotateTime += Time.deltaTime * 2f;
 
             isRotating = rotateTime < maxRotateTime;
         }

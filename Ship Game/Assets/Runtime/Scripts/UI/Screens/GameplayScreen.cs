@@ -4,6 +4,10 @@ using TMPro;
 public class GameplayScreen : Screen
 {
     [SerializeField] GameMode _gameMode;
+    [SerializeField] GameSession _gameSession;
+
+    [Header("Text Components")]
+    [SerializeField] TextMeshProUGUI _timeRemainingText;
     [SerializeField] TextMeshProUGUI _moveForwardText;
     [SerializeField] TextMeshProUGUI _rotateLeftText;
     [SerializeField] TextMeshProUGUI _rotateRightText;
@@ -17,9 +21,12 @@ public class GameplayScreen : Screen
         _playerInputs = _gameMode.GetPlayerController().GetPlayerInputs();
     }
 
-    void LateUpdate() 
+    void Update() => UpdateTimeText();
+    void LateUpdate()  => UpdateInputsText();
+
+    void UpdateTimeText()
     {
-        UpdateInputsText();
+        _timeRemainingText.text = $"Time Remaining : {_gameSession.ReamingTime()}";
     }
 
     void UpdateInputsText()

@@ -10,8 +10,6 @@ public class GameSession : MonoBehaviour, IObserver<Timer>
     private void OnDestroy() => _gameSessionTimer?.RemoveListener(this);
     private void Start()  => _gameSessionTimer.StartTimer(_gameplaySettingsSO.GameSessionTime);    
     
-    public void OnNotified(Timer notifier)
-    {
-        _gameMode.EndGame();
-    }
+    public void OnNotified(Timer notifier) => _gameMode.EndGame();
+    public float ReamingTime() => _gameSessionTimer.GetRemainingTime();
 }
