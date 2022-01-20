@@ -23,7 +23,7 @@ public class ShipAnimation : MonoBehaviour, IObserver<ShipDamageable>
     private void OnEnable() 
     {
         UpdateSprite(_shipDamageableToObserver.GetCurrentStatus());
-        UpdateText(_shipDamageableToObserver);
+        UpdateHealthyText(_shipDamageableToObserver);
 
         _smallFire.SetActive(false);
         _bigFire.SetActive(false);
@@ -38,10 +38,10 @@ public class ShipAnimation : MonoBehaviour, IObserver<ShipDamageable>
         UpdateSprite(curStatus);
         ProcessFireAnimation(curStatus);
         PlayExplosionAnimation();
-        UpdateText(notifier);
+        UpdateHealthyText(notifier);
     }
 
-    private void UpdateText(ShipDamageable damageable)
+    private void UpdateHealthyText(ShipDamageable damageable)
     {
         _damageText.text = $"{damageable.GetCurrentHealthy()}";
     }

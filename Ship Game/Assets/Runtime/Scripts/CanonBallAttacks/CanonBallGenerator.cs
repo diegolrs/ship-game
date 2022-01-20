@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CanonBallGenerator : MonoBehaviour
 {
-    [SerializeField, Range(0, 20)] int _preGenerateQuant;
+    [SerializeField, Tooltip("Quantity to generate on start."), Range(0, 20)] int _preGenerateQuant;
     [SerializeField] CanonBall _canonBallPrefab;
     [SerializeField] ObjectPool _canonBallPooler;
 

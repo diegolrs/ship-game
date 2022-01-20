@@ -1,87 +1,61 @@
-using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Timer))]
 public class ChaserController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IObserver<ShipDamageable>
 {
     [SerializeField] PlayerController _player;
     [SerializeField] ShipMovement _chaserShipMovement;
     [SerializeField] ShipDamageable _chaserShipDamage;
     [SerializeField] ChaserShipRotator _chaserShipRotator;
-
-    private const int DamageValue = 30;
+    [SerializeField] int _explosionDamageValue = 30;
 
 
     #region Enemy Ship Interface
-    public int PointsPerDeath => 1;
-    public float TimeToDisableAfterDeath => 2f;
+    public int PointsToAddAfterBeKilled => 1;
+    public float DelayToDisableAfterBeKilled => 2f;
     public EnemySpawner EnemySpawner { get; private set; }
     public GameMode GameMode {get; private set;}
-    public Timer DisableTimer { get; private set; }
-    public bool WasSetuped { get; private set; }
+    [field: SerializeField] public Timer DisableAfterBeKilledTimer { get; private set; }
 
     public void SetupShip(EnemySpawner spawner, GameMode gameMode)
     {
-        if(DisableTimer == null)
-        {
-            DisableTimer = GetComponent<Timer>();
-            DisableTimer.AddListener(this);
-        }
-
-        DisableTimer.DisabeTimer();
-
-
         _chaserShipDamage.AddListener(this);
 
         this.EnemySpawner = spawner;
         this.GameMode = gameMode;
         _player = gameMode.GetPlayerController();
-
-        WasSetuped = true;
+        DisableAfterBeKilledTimer.DisabeTimer();
     }
     #endregion
 
-    private void OnDisable()
+    private void Awake()
     {
-        WasSetuped = false;
+        DisableAfterBeKilledTimer.AddListener(this);
+        _chaserShipDamage.AddListener(this);
     }
 
     private void OnDestroy() 
     {
-        DisableTimer?.RemoveListener(this);
+        DisableAfterBeKilledTimer?.RemoveListener(this);
         _chaserShipDamage?.RemoveListener(this);
-    }
-
-    private void OnCollisionEnter2D(Collision2D other) 
-    {
-        if(other.gameObject.GetComponent<PlayerController>() != null)
-            Explode();
-    }
-
-    public void OnNotified(Timer notifier)
-    {
-        EnemySpawner.UnspawnEnemy(gameObject);
-    }
-
-    public void OnNotified(ShipDamageable notifier)
-    {
-        if(notifier.IsDead())
-        {
-            GameMode.IncreaseScore(PointsPerDeath);
-            DisableTimer.StartTimer(TimeToDisableAfterDeath);
-        }
     }
 
     private void Update() 
     {
-        if(!WasSetuped || _chaserShipDamage.IsDead())
-            return;
-
-        Chase();
+        if(!_chaserShipDamage.IsDead())
+            ChasePlayer();
     }
 
-    private void Chase()
+    private void OnCollisionEnter2D(Collision2D other) 
     {
+        if(other.gameObject.GetComponent<PlayerController>() is PlayerController player)
+            Explode(player);
+    }
+
+    private void ChasePlayer()
+    {
+        if(_player == null)
+            return;
+
         _chaserShipMovement.MoveForward();
 
         if(!_chaserShipRotator.IsRotating())
@@ -92,15 +66,30 @@ public class ChaserController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IOb
                 y = _chaserShipMovement.Position.y > _player.Position.y ? -1 : 1
             };
 
-            _chaserShipRotator.StartRotation(dir);
+            _chaserShipRotator.StartRotation(dir.normalized);
         }
     }
+
+    public void OnNotified(ShipDamageable notifier)
+    {
+        if(notifier.IsDead())
+        {
+            GameMode.IncreaseScore(PointsToAddAfterBeKilled);
+            DisableAfterBeKilledTimer.StartTimer(DelayToDisableAfterBeKilled);
+        }
+    }
+
+    public void OnNotified(Timer notifier)
+    {
+        if(notifier == DisableAfterBeKilledTimer)
+            EnemySpawner.UnspawnEnemy(gameObject);
+    }
     
-    private void Explode()
+    private void Explode(PlayerController playerToExplode)
     {
         if(!_chaserShipDamage.IsDead())
         {
-            _player.GetShipDamageable().TakeDamage(DamageValue);
+            playerToExplode?.GetShipDamageable().TakeDamage(_explosionDamageValue);
             _chaserShipDamage.TakeDamage(_chaserShipDamage.GetMaxHealthy());
         }
     }

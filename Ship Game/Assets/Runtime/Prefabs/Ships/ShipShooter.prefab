@@ -1,80 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &561327108
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 561327109}
-  - component: {fileID: 561327110}
-  m_Layer: 0
-  m_Name: AttackTimer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &561327109
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 561327108}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1110616794}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &561327110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 561327108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd0b7915021ce9b4d84c2c64e74a946f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1110616793
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1110616794}
-  m_Layer: 0
-  m_Name: Timers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1110616794
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1110616793}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1581736654}
-  - {fileID: 561327109}
-  m_Father: {fileID: 5838671643110587294}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1313143865
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,8 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1313143866}
+  - component: {fileID: 3541798777223669816}
+  - component: {fileID: 8171541180318509555}
   m_Layer: 0
-  m_Name: ShootReference
+  m_Name: FrontalShoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,6 +32,36 @@ Transform:
   m_Father: {fileID: 5838671643110587294}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3541798777223669816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313143865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8d8518bf9c82e4e88f67adfd247a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DamagePerBall>k__BackingField: 30
+  <CanonBallSpeed>k__BackingField: 5
+  <AttackCoolDown>k__BackingField: 2
+  <IsWaitingCoolDownEnds>k__BackingField: 0
+  _positionReference: {fileID: 1313143866}
+  _colliderToIgnore: {fileID: 5838671643110587295}
+--- !u!114 &8171541180318509555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313143865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0b7915021ce9b4d84c2c64e74a946f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1581736653
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +73,7 @@ GameObject:
   - component: {fileID: 1581736654}
   - component: {fileID: 1581736655}
   m_Layer: 0
-  m_Name: UnspawnTimer
+  m_Name: DisableTimer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,8 +90,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1110616794}
-  m_RootOrder: 0
+  m_Father: {fileID: 5838671643110587294}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1581736655
 MonoBehaviour:
@@ -211,6 +168,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5917035616882460767, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
+      propertyPath: _rotateSpeed
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 5917035617098216863, guid: 5d09a5ed3ba7c27489f5e4ad222b4115, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -247,23 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a781959eada0f4f881605f7aa0f048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &569653575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5838671643110587363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c8d8518bf9c82e4e88f67adfd247a3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <DamagePerBall>k__BackingField: 30
-  <Speed>k__BackingField: 5
-  _shipTransform: {fileID: 5838671643110587294}
-  _positionReference: {fileID: 1313143866}
-  _attackOwner: {fileID: 5838671643110587295}
 --- !u!114 &7823510696484396520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,11 +220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b17427cf1aaccd84a86bb4fa4befd758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
   _shooterShipDamage: {fileID: 5838671643110587289}
   _minDistanceToShoot: 4.46
-  _attackDelay: 1.4
-  _attackTimer: {fileID: 561327110}
-  <UnspawnTimer>k__BackingField: {fileID: 1581736655}
-  _colorWhenCantShoot: {r: 0, g: 1, b: 0, a: 1}
-  _colorWhenCanShoot: {r: 1, g: 0, b: 0, a: 1}
+  _attack: {fileID: 3541798777223669816}
+  <DisableAfterBeKilledTimer>k__BackingField: {fileID: 1581736655}
+  _gizmosColorWhenShouldShoot: {r: 1, g: 0, b: 0, a: 1}
+  _gizmosColorWhenShouldNotShoot: {r: 0, g: 1, b: 0, a: 1}

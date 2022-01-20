@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class ShipDamageable : ObserverNotifier<ShipDamageable>, IDamageable
 {
+    #region Damage Status
+    private const float DamagedABitPercentage = 0.55f;
+    private const float DamagedALotPercentage = 0.3f;
+
     public enum DamageStatus
     {
         FullHealthy,
@@ -9,29 +13,25 @@ public class ShipDamageable : ObserverNotifier<ShipDamageable>, IDamageable
         DamagedALot,
         Dead
     }
-
-    #region Status Percentage
-    private const float DamagedABitPercentage = 0.55f;
-    private const float DamagedALotPercentage = 0.3f;
     #endregion
 
     [SerializeField] int _maxHealthy;
-    int _currentHealthy;
-    DamageStatus _currentStatus;
+    private DamageStatus _currentStatus;
+    private int _currentHealthy;
 
     private void OnEnable() =>  ResetToDefault();
+
+    public bool IsDead() => _currentStatus == DamageStatus.Dead;
+
+    public int GetCurrentHealthy() => _currentHealthy;
+    public int GetMaxHealthy() => _maxHealthy;
+    public DamageStatus GetCurrentStatus() => _currentStatus;
 
     public void ResetToDefault()
     {
         _currentStatus = DamageStatus.FullHealthy;
         _currentHealthy = _maxHealthy;
     }
-
-    public int GetCurrentHealthy() => _currentHealthy;
-    public int GetMaxHealthy() => _maxHealthy;
-    public DamageStatus GetCurrentStatus() => _currentStatus;
-
-    public bool IsDead() => _currentStatus == DamageStatus.Dead;
 
     public DamageStatus GetStatusWithPercentage(float percentage)
     {
