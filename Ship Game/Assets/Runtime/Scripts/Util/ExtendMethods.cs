@@ -2,7 +2,6 @@ using UnityEngine;
 
 public static class ExtendMethods
 {
-    #region Math Operations
     /// <summary> Get Transform 2D rotation angle in degrees. 
     /// The value is clamped between (0, 360) instead of default (-180, 180). </summary>
     /// <returns> Return transform rotation z clamped between 0 and 360 degrees. </returns>
@@ -28,7 +27,11 @@ public static class ExtendMethods
                                 y = Mathf.Sin(zRotation)
                             };
     }
-    #endregion
+
+    public static void SetRotation(this Transform transform, Vector3 rotation)
+    {
+        transform.rotation = Quaternion.Euler( rotation );
+    }
 
     public static T PickRandom<T>(this T[] array)
     {

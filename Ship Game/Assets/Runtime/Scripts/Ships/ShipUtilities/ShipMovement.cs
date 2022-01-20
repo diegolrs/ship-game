@@ -8,13 +8,10 @@ public class ShipMovement : MonoBehaviour
     [SerializeField] float _rotateSpeed;
     Rigidbody2D _rb;
 
-    public float Rotation => transform.rotation.eulerAngles.z;
+    public Vector3 Position => transform.position;
+    public float CurrentRotation => transform.GetZRotationInDegrees();
 
-    public enum RotateDirection
-    {
-        Left = 1,
-        Right = -1
-    }
+    public enum RotateDirection { Left = 1, Right = -1 }
 
     private void Awake()
     {
@@ -33,6 +30,8 @@ public class ShipMovement : MonoBehaviour
         transform.Rotate(v3);
     }
 
+    public void SetRotation(float rotation) => transform.SetRotation(Vector3.forward * rotation);
+
     public float GetInCircleDegrees(float rot)
     {
         while(rot < 0)
@@ -46,14 +45,14 @@ public class ShipMovement : MonoBehaviour
 
     public IEnumerator RotateRoutine(float target)
     {
-        float from = GetInCircleDegrees(Rotation);
+        float from = CurrentRotation;
         target = GetInCircleDegrees(target);
 
         var direction = from > target ? RotateDirection.Left : RotateDirection.Right;
 
         if(direction == RotateDirection.Left)
         {
-            while(GetInCircleDegrees(Rotation) > target)
+            while(CurrentRotation > target)
             {
                 Rotate(direction);
                 yield return null;
@@ -61,7 +60,7 @@ public class ShipMovement : MonoBehaviour
         }
         else if(direction == RotateDirection.Right)
         {
-            while(GetInCircleDegrees(Rotation) < target)
+            while(CurrentRotation < target)
             {
                 Rotate(direction);
                 yield return null;

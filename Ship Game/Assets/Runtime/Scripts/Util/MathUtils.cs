@@ -13,6 +13,12 @@ public static class MathUtils
     {
         return Mathf.Cos(a) * Mathf.Cos(b) - Mathf.Sin(a) * Mathf.Sin(b);
     }
+
+    public static float LerpClamped(float init, float end, float t)
+    {
+        t = Mathf.Clamp(t, 0, 1);
+        return init + t*(end - init);
+    }
     
     #region Vector Rotation
     // Linear Algebra Concept: 
