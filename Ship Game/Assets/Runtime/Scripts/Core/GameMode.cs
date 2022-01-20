@@ -12,6 +12,7 @@ public class GameMode : MonoBehaviour
 
     public PlayerController GetPlayerController() => _playerShip;
     public CanonBallGenerator GetCanonBallGenerator() => _canonBallGenerator;
+    public EnemySpawner GetEnemySpawner() => _enemySpawner;
 
     public void IncreaseScore(int quant=1)
     {

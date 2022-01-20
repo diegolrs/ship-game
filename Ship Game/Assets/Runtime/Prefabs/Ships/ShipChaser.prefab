@@ -146,6 +146,7 @@ MonoBehaviour:
   _player: {fileID: 0}
   _chaserShipMovement: {fileID: 5196206872341475112}
   _chaserShipDamage: {fileID: 5196206872341475116}
+  _chaserShipRotator: {fileID: 7044278471549108259}
 --- !u!114 &1873825192378456014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,3 +159,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0b7915021ce9b4d84c2c64e74a946f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7044278471549108259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5196206872341475158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e454d2406911cc4794bc9ee7eb5a858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _chaserShip: {fileID: 5196206872341475112}

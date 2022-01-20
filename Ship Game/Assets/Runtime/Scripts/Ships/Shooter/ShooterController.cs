@@ -16,10 +16,10 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
 
     #region Enemy Ship Interface
     public int PointsPerDeath => 1;
-    public float UnspawnTime => 2f;
+    public float TimeToDisableAfterDeath => 2f;
     public EnemySpawner EnemySpawner { get; set; }
     public GameMode GameMode {get; private set;}
-    [field: SerializeField] public Timer UnspawnTimer { get; private set; }
+    [field: SerializeField] public Timer DisableTimer { get; private set; }
     public bool WasSetuped { get; private set; }
 
     public void SetupShip(EnemySpawner spawner, GameMode gameMode)
@@ -30,7 +30,7 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
         this._player = gameMode.GetPlayerController();
         this._canonBallGenerator = gameMode.GetCanonBallGenerator();
         
-        UnspawnTimer.DisabeTimer();
+        DisableTimer.DisabeTimer();
         _attackTimer.StartTimer(_attackDelay, Timer.TimerMode.Loop);
 
         WasSetuped = true;
@@ -54,14 +54,14 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
     private void Awake()
     {
         _attack = GetComponent<ICanonBallAttack>(); 
-        UnspawnTimer.AddListener(this);
+        DisableTimer.AddListener(this);
         _attackTimer.AddListener(this);
         _shooterShipDamage.AddListener(this);
     }
 
     public void OnNotified(Timer notifier)
     {
-        if(notifier == UnspawnTimer)
+        if(notifier == DisableTimer)
             EnemySpawner.UnspawnEnemy(gameObject);
         else if(notifier == _attackTimer)
             ProcessAttack();
@@ -72,7 +72,7 @@ public class ShooterController : MonoBehaviour, IEnemyShip, IObserver<Timer>, IO
         if(notifier.IsDead())
         {
             GameMode.IncreaseScore(PointsPerDeath);
-            UnspawnTimer.StartTimer(UnspawnTime);
+            DisableTimer.StartTimer(TimeToDisableAfterDeath);
             _attackTimer.DisabeTimer();
         }
     }
